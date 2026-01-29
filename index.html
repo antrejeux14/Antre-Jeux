@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>L'Antre Jeux — Là où le bois devient jeux</title>
   <meta name="description" content="L'Antre Jeux : animations et jeux en bois. Là où le bois devient jeux." />
+
   <style>
     :root{
       --ink:#eef6f0;
@@ -54,8 +55,6 @@
       box-shadow: var(--shadow);
       overflow:hidden;
     }
-    .hero{padding:26px 0;}
-    .hero .card{padding:22px;}
     h1{margin:0 0 10px; font-size: clamp(30px, 4vw, 46px); line-height:1.04;}
     .subtitle{margin:0; color:var(--muted); line-height:1.6;}
     .cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;}
@@ -84,37 +83,42 @@
     .row{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px;}
     @media (max-width: 920px){ .row{grid-template-columns:1fr;} }
     footer{padding:22px 0 40px; color:rgba(255,255,255,.55); font-size:13px;}
+
+    /* Bannière plein écran */
+    .hero-banner{
+      height:100vh;
+      width:100%;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65)),
+        url('https://chat.openai.com/cdn-cgi/imagedelivery/7kGXzv9sC7D0zT1I9Ew0mQ/0b8d4f3a-9f8e-4f7b-b8c6-5c2b4d6f8c7a/public')
+        center / cover no-repeat;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+    .hero-box{
+      background: rgba(0,0,0,.45);
+      padding:24px 28px;
+      border-radius:20px;
+      box-shadow: var(--shadow);
+    }
+    .hero-box h1{font-size: clamp(38px, 6vw, 72px); margin:0 0 8px;}
+    .hero-box p{margin:0; color:var(--muted);}
   </style>
 </head>
-<body>
-  /* Bannière plein écran */
-.hero-banner{
-  height: 100vh;
-  width: 100%;
-  background: center / cover no-repeat;
-  display: grid;
-  place-items: center;
-  position: relative;
-}
-.hero-banner::after{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65));
-}
-.hero-banner .overlay{
-  position:relative;
-  text-align:center;
-  z-index:1;
-}
-.hero-banner h1{
-  font-size: clamp(38px, 6vw, 72px);
-  margin:0 0 10px;
-}
-.hero-banner p{
-  color: var(--muted);
-  margin:0;
-}
 
+<body>
+
+  <!-- BANNIÈRE -->
+  <section class="hero-banner">
+    <div class="hero-box">
+      <h1>L'Antre Jeux</h1>
+      <p>Là où le bois devient jeux</p>
+    </div>
+  </section>
+
+  <!-- MENU -->
   <header>
     <div class="wrap top">
       <div class="brand">
@@ -133,23 +137,16 @@
   </header>
 
   <main class="wrap">
-    <section class="hero">
-      <div class="card">
-        <h1>L'Antre Jeux</h1>
+
+    <section class="section">
+      <div class="card tile">
         <p class="subtitle">
-          <b>Là où le bois devient jeux</b><br>
           De la table à la pelouse, nous créons des jeux en bois et vous leur donnez vie.
           Accessible à partir de 4 ans, sans limite d'âge ni de condition.
           <br><br>
-          Pour vos manifestations, EVJF/EVG, teambuilding, anniversaire, mariage : nous adaptons notre proposition à votre demande.
+          Pour vos manifestations, EVJF/EVG, teambuilding, anniversaire, mariage :
+          nous adaptons notre proposition à votre demande.
         </p>
-
-        <div class="cta">
-          <a class="btn primary" href="#contact">Nous contacter</a>
-          <a class="btn" href="tel:+33662299891">Appeler Laurent</a>
-          <a class="btn" href="mailto:antrejeux14@gmail.com">Envoyer un mail</a>
-          <a class="btn" target="_blank" rel="noopener" href="https://m.me/61586328792079">Messenger</a>
-        </div>
       </div>
     </section>
 
@@ -182,7 +179,7 @@
     <section id="contact" class="section">
       <div class="card contact">
         <h2 style="margin:0 0 6px;">Formulaire de contact</h2>
-        <p style="margin:0;color:var(--muted);">Le formulaire ouvre votre application mail avec le message prêt à partir.</p>
+        <p style="margin:0;color:var(--muted);">Le formulaire ouvre votre application mail.</p>
 
         <form action="mailto:antrejeux14@gmail.com" method="post" enctype="text/plain">
           <div class="row">
