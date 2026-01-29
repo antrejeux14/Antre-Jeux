@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>L'Antre Jeux — Là où le bois devient jeux</title>
+  <meta name="description" content="L'Antre Jeux : animations et jeux en bois. Là où le bois devient jeux." />
+
+  <style>
+    :root{
+      --bg:#0b1411;
+      --card:#0f1f19;
+      --ink:#eef6f0;
+      --muted:#cfe3d6;
+      --accent:#2f7d4e;       /* vert */
+      --accent2:#b8844a;      /* bois */
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 14px 35px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(47,125,78,.35), transparent 60%),
+        radial-gradient(900px 500px at 95% 10%, rgba(184,132,74,.25), transparent 55%),
+        linear-gradient(180deg, #07110d, #0b1411 30%, #06110d);
+      min-height:100vh;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 20px;}
+    .nav{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,20,17,.65);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(184,132,74,.95), rgba(47,125,78,.95));
+      box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.10);
+      font-weight:900;
+    }
+    .links{display:flex; gap:14px; flex-wrap:wrap; align-items:center;}
+    .links a{
+      padding:8px 10px; border-radius:12px;
+      color:var(--muted);
+      border:1px solid transparent;
+    }
+    .links a:hover{
+      color:var(--ink);
+      border-color: var(--line);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Banner (image en haut) */
+    .top-banner{
+      margin-top:18px;
+      border-radius: var(--radius);
+      overflow:hidden;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.03);
+      position: relative;
+    }
+    .top-banner img{
+      width:100%;
+      height:auto;
+      display:block;
+      object-fit:cover;
+      max-height:320px;
+    }
+    .banner-overlay{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55));
+      pointer-events:none;
+    }
+    .banner-note{
+      position:absolute;
+      left:14px; bottom:12px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.14);
+      padding:8px 10px;
+      border-radius: 12px;
+      color: rgba(255,255,255,.85);
+      font-size: 12px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero{padding:22px 0 24px;}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){ .hero-grid{grid-template-columns:1fr;} }
+
+    .card{
+      background: rgba(15,31,25,.72);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero-main{
+      padding:28px;
+      background:
+        radial-gradient(650px 340px at 30% 15%, rgba(184,132,74,.22), transparent 60%),
+        radial-gradient(650px 340px at 80% 50%, rgba(47,125,78,.25), transparent 55%),
+        rgba(15,31,25,.72);
+    }
+    h1{margin:0 0 10px; font-size: clamp(30px, 4vw, 46px); line-height:1.04;}
+    .subtitle{margin:0 0 18px; color:var(--muted); font-size: 16px; max-width:62ch;}
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size: 13px;
+      margin-bottom:14px;
+    }
+    .cta{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--ink);
+      font-weight:700;
+      transition:.15s transform, .15s background;
+      cursor:pointer;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10);}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(47,125,78,.95), rgba(184,132,74,.75));
+      border-color: rgba(255,255,255,.14);
+    }
+
+    .hero-side{padding:22px; display:grid; gap:12px;}
+    .mini{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .mini b{display:block; margin-bottom:6px;}
+    .mini span{color:var(--muted); font-size:14px; line-height:1.5;}
+    .mini a{ text-decoration: underline; text-underline-offset: 3px; }
+
+    .section{padding:22px 0;}
+    .section h2{margin:0 0 10px; font-size:22px;}
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+    }
+    @media (max-width: 920px){ .grid3{grid-template-columns:1fr;} }
+
+    .tile{padding:18px;}
+    .tile h3{margin:0 0 6px; font-size:18px;}
+    .tile p{margin:0; color:var(--muted); line-height:1.55;}
+
+    .divider{height:1px; background:var(--line); margin:18px 0;}
+
+    /* Galerie */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+      margin-top:12px;
+    }
+    @media (max-width: 920px){ .gallery{grid-template-columns:1fr;} }
+
+    .g-item{
+      padding:12px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      cursor:pointer;
+      transition: .12s transform, .12s background;
+    }
+    .g-item:hover{ transform: translateY(-2px); background: rgba(255,255,255,.06); }
+    .g-thumb{
+      width:100%;
+      height:170px;
+      border-radius:14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      color: rgba(255,255,255,.75);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .g-thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .g-meta h3{ margin:0 0 4px; font-size:16px; }
+    .g-meta p{ margin:0; color: var(--muted); font-size:14px; line-height:1.45; }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.75);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index: 999;
+    }
+    .lb-card{
+      width:min(980px, 96vw);
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(15,31,25,.92);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .lb-img{
+      width:100%;
+      max-height: 70vh;
+      background: rgba(255,255,255,.05);
+      display:grid;
+      place-items:center;
+    }
+    .lb-img img{
+      width:100%;
+      height:auto;
+      max-height:70vh;
+      object-fit:contain;
+      display:block;
+    }
+    .lb-body{
+      padding:14px 16px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .lb-text b{display:block; margin-bottom:4px;}
+    .lb-text span{color:var(--muted); line-height:1.5;}
+    .lb-actions{display:flex; gap:10px; flex-wrap:wrap;}
+    .lb-close{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--ink);
+      border-radius: 12px;
+      padding:10px 12px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .contact{padding:22px;}
+    .contact-row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width: 920px){ .contact-row{grid-template-columns:1fr;} }
+
+    input, textarea, select{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color:var(--ink);
+      outline:none;
+      appearance:none;
+    }
+    textarea{min-height:140px; resize:vertical;}
+    .hint{color:var(--muted); font-size:13px; margin-top:10px; line-height:1.45;}
+
+    footer{
+      padding:22px 0 40px;
+      color:rgba(255,255,255,.55);
+      font-size:13px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand">
+        <div class="logo">AJ</div>
+        <div>
+          <div style="font-size:15px;">L'Antre Jeux</div>
+          <div style="font-size:12px;color:var(--muted);">Là où le bois devient jeux</div>
+        </div>
+      </div>
+      <nav class="links">
+        <a href="#services">Services</a>
+        <a href="#galerie">Photos</a>
+        <a href="#apropos">À propos</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ✅ BANNIÈRE (mets ton image ici) -->
+    <section class="top-banner" aria-label="Bannière L'Antre Jeux">
+      <!-- IMPORTANT :
+           1) Crée un dossier "images"
+           2) Mets ta bannière dedans
+           3) Renomme-la "banniere-fb.png" (ou modifie le src ci-dessous)
+      -->
+      <img src="images/banniere-fb.png" alt="Bannière L'Antre Jeux" />
+      <div class="banner-overlay"></div>
+      <div class="banner-note">Astuce : remplace <b>images/banniere-fb.png</b> par ta bannière</div>
+    </section>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="card hero-main">
+          <div class="badge">🪵 Jeux en bois • 🎉 Animations • 🤝 Convivial</div>
+          <h1>L'Antre Jeux</h1>
+          <p class="subtitle">
+            <b>Là où le bois devient jeux</b><br>
+            De la table à la pelouse, nous créons des jeux en bois et vous leur donnez vie.
+            Accessible à partir de 4 ans, sans limite d'âge ni de condition.
+          </p>
+
+          <div class="cta">
+            <a class="btn primary" href="#contact">Nous contacter</a>
+            <a class="btn" href="#galerie">Voir les photos</a>
+            <!-- ✅ Bouton Messenger -->
+            <a class="btn" target="_blank" rel="noopener"
+               href="https://m.me/61586328792079">Messenger</a>
+          </div>
+
+          <div class="divider"></div>
+          <div style="color:var(--muted);line-height:1.55;">
+            Pour vos manifestations, EVJF/EVG, teambuilding, anniversaire, mariage :
+            nous pouvons adapter notre proposition à votre demande.
+            <b style="color:var(--ink);">N'hésitez pas à nous contacter.</b>
+          </div>
+        </div>
+
+        <aside class="card hero-side">
+          <div class="mini">
+            <b>Contact</b>
+            <span>
+              📞 Laurent : <a href="tel:+33662299891">06 62 29 98 91</a><br>
+              ✉️ <a href="mailto:antrejeux14@gmail.com">antrejeux14@gmail.com</a>
+            </span>
+          </div>
+
+          <div class="mini">
+            <b>Facebook</b>
+            <span>
+              <a href="https://www.facebook.com/profile.php?id=61586328792079" target="_blank" rel="noopener">
+                Voir la page L’Antre Jeux
+              </a><br>
+              <a href="https://m.me/61586328792079" target="_blank" rel="noopener">
+                Écrire sur Messenger
+              </a>
+            </span>
+          </div>
+
+          <div class="mini">
+            <b>Pour quels événements ?</b>
+            <span>Manifestations • EVJF/EVG • Teambuilding • Anniversaires • Mariages</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <h2>Services</h2>
+      <div class="grid3">
+        <div class="card tile">
+          <h3>Jeux en bois</h3>
+          <p>Des jeux pensés pour être simples, accessibles et fun, en intérieur comme en extérieur.</p>
+        </div>
+        <div class="card tile">
+          <h3>Animation</h3>
+          <p>Nous mettons l’ambiance et guidons les participants : idéal pour les grands groupes.</p>
+        </div>
+        <div class="card tile">
+          <h3>Offre sur mesure</h3>
+          <p>Selon votre événement, nous adaptons la sélection et l’organisation à votre demande.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ✅ GALERIE prête (photos + descriptifs à venir) -->
+    <section id="galerie" class="section">
+    <h2>Photos & descriptifs</h2>
+<p style="margin:0;color:var(--muted);line-height:1.6;">
+  📸 Galerie en cours de création…  
+  Très bientôt, vous découvrirez nos jeux en images et en détails !
+</p>
+
+      <div class="gallery" style="margin-top:14px;">
+        <!-- Remplace les src par tes photos (ex: images/jeu1.jpg) -->
+        <div class="g-item" data-img="images/jeu1.jpg" data-title="Nom du jeu" data-desc="Description courte (à compléter).">
+          <div class="g-thumb"><span>Photo #1</span></div>
+          <div class="g-meta">
+            <h3>Nom du jeu</h3>
+            <p>Description courte (à compléter).</p>
+          </div>
+        </div>
+
+        <div class="g-item" data-img="images/jeu2.jpg" data-title="Nom du jeu" data-desc="Description courte (à compléter).">
+          <div class="g-thumb"><span>Photo #2</span></div>
+          <div class="g-meta">
+            <h3>Nom du jeu</h3>
+            <p>Description courte (à compléter).</p>
+          </div>
+        </div>
+
+        <div class="g-item" data-img="images/jeu3.jpg" data-title="Nom du jeu" data-desc="Description courte (à compléter).">
+          <div class="g-thumb"><span>Photo #3</span></div>
+          <div class="g-meta">
+            <h3>Nom du jeu</h3>
+            <p>Description courte (à compléter).</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="hint" style="margin-top:12px;">
+        Quand tu auras des photos : crée un dossier <b>images</b> et ajoute par exemple <b>jeu1.jpg</b>, <b>jeu2.jpg</b>…
+        Puis remplace les textes “Nom du jeu / Description” ici.
+      </p>
+    </section>
+
+    <section id="apropos" class="section">
+      <div class="card tile">
+        <h2>À propos</h2>
+        <p style="margin:0;color:var(--muted);line-height:1.7;">
+          De la table à la pelouse, nous créons des jeux en bois et vous leur donnez vie.
+          Accessible à partir de 4 ans, sans limite d'âge ni de condition.
+          <br><br>
+          Pour vos manifestations, EVJF/EVG, teambuilding, anniversaire, mariage ; nous adaptons notre proposition à votre demande.
+          N'hésitez pas à nous contacter.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="card contact">
+        <h2>Formulaire de contact</h2>
+        <p style="margin:0;color:var(--muted);">
+          Remplissez ce formulaire : cela ouvrira votre application mail avec le message prêt à partir.
+        </p>
+
+        <form action="mailto:antrejeux14@gmail.com" method="post" enctype="text/plain">
+          <div class="contact-row">
+            <select name="Profil" required>
+              <option value="" selected disabled>Vous êtes…</option>
+              <option>Particulier</option>
+              <option>Société</option>
+              <option>Association</option>
+            </select>
+            <input name="Nom" placeholder="Nom / Prénom (ou société/asso)" required />
+          </div>
+
+          <div class="contact-row">
+            <input name="Téléphone" placeholder="Numéro de téléphone" />
+            <input name="Email" placeholder="Adresse mail" required />
+          </div>
+
+          <div style="margin-top:12px;">
+            <textarea name="Demande" placeholder="Exprimez votre demande (date, lieu, type d’événement, nombre de personnes, durée…)"></textarea>
+          </div>
+
+          <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            <button class="btn primary" type="submit">Envoyer</button>
+            <a class="btn" href="tel:+33662299891">Appeler Laurent</a>
+            <a class="btn" href="mailto:antrejeux14@gmail.com">Écrire un mail</a>
+            <a class="btn" target="_blank" rel="noopener" href="https://m.me/61586328792079">Messenger</a>
+          </div>
+
+          <div class="hint">
+            Si tu veux plus tard un formulaire qui envoie “sans ouvrir le mail” (100% pro),
+            on passera sur une option gratuite type Netlify Forms / Formspree.
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      © <span id="y"></span> L'Antre Jeux — Là où le bois devient jeux
+    </footer>
+  </main>
+
+  <!-- ✅ Lightbox (galerie cliquable) -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lb-card" role="dialog" aria-modal="true" aria-label="Aperçu photo">
+      <div class="lb-img" id="lbImg"></div>
+      <div class="lb-body">
+        <div class="lb-text">
+          <b id="lbTitle">Titre</b>
+          <span id="lbDesc">Description</span>
+        </div>
+        <div class="lb-actions">
+          <button class="lb-close" id="lbClose">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Galerie: si une image existe, on l'affiche. Sinon, on garde le placeholder.
+    document.querySelectorAll(".g-item").forEach(card => {
+      const src = card.getAttribute("data-img");
+      const thumb = card.querySelector(".g-thumb");
+      const img = new Image();
+      img.onload = () => {
+        thumb.innerHTML = "";
+        thumb.appendChild(img);
+      };
+      img.onerror = () => {
+        // on laisse le placeholder
+      };
+      img.src = src;
+      img.alt = card.getAttribute("data-title") || "Photo";
+    });
+
+    // Lightbox
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbTitle = document.getElementById("lbTitle");
+    const lbDesc = document.getElementById("lbDesc");
+    const lbClose = document.getElementById("lbClose");
+
+    function openLB(src, title, desc){
+      lbImg.innerHTML = "";
+      const im = new Image();
+      im.src = src;
+      im.alt = title || "Photo";
+      lbImg.appendChild(im);
+      lbTitle.textContent = title || "Photo";
+      lbDesc.textContent = desc || "";
+      lb.style.display = "flex";
+      lb.setAttribute("aria-hidden","false");
+    }
+    function closeLB(){
+      lb.style.display = "none";
+      lb.setAttribute("aria-hidden","true");
+    }
+
+    document.querySelectorAll(".g-item").forEach(card => {
+      card.addEventListener("click", () => {
+        const src = card.getAttribute("data-img");
+        const title = card.getAttribute("data-title");
+        const desc = card.getAttribute("data-desc");
+        // Ouvre même si l'image n'existe pas encore : tu verras quand tu l'ajoutes
+        openLB(src, title, desc);
+      });
+    });
+
+    lbClose.addEventListener("click", closeLB);
+    lb.addEventListener("click", (e) => { if(e.target === lb) closeLB(); });
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeLB(); });
+  </script>
+</body>
+</html>
